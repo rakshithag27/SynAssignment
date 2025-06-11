@@ -7,7 +7,7 @@ import com.synassignment01.dto.RegisterResponse;
 import com.synassignment01.exceptions.PasswordMismatchException;
 import com.synassignment01.exceptions.UserAlreadyExistsException;
 import com.synassignment01.service.UserService;
-import com.synassignment01.util.JWTUtil;
+import com.synassignment01.security.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
