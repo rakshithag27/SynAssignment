@@ -24,18 +24,14 @@ import java.util.List;
 public class AuthConfig {
 
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder builder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
-        builder.userDetailsService(userService).passwordEncoder(passwordEncoder());
+        builder.userDetailsService(userService).passwordEncoder(passwordEncoder);
         return builder.build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     @Bean
