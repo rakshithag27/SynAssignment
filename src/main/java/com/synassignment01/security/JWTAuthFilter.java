@@ -7,6 +7,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 public class JWTAuthFilter extends OncePerRequestFilter {
 
@@ -35,6 +37,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
+            log.info("Authorization header not present or is invalid. Ignore if /login or /register endpoint");
             return;
         }
 
@@ -58,12 +61,11 @@ public class JWTAuthFilter extends OncePerRequestFilter {
                         roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList())
                 );
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
-
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            log.error("JWT Authentication Error {} ", e.getMessage());
             return;
         }
         filterChain.doFilter(request, response);
