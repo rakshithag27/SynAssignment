@@ -25,6 +25,10 @@ public class CustomEntrypointAuthentication implements AuthenticationEntryPoint 
                          AuthenticationException authException) throws IOException {
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.getWriter().write("{\"error\": \"Unauthorized: Token is missing or invalid\"}");
+        String jsonResponse = String.format(
+                "{\"error\": \"Unauthorized: Token is missing or invalid\", \"exception\": \"%s\"}",
+                authException.getMessage()
+        );
+        response.getWriter().write(jsonResponse);
     }
 }
