@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * DTO representing a Register response with a message.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

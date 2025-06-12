@@ -17,6 +17,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service class handling user authentication and registration logic.
+ * Implements Spring Security's UserDetailsService for loading user-specific data.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -25,6 +29,14 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Loads a user from the database by username.
+     * Required by Spring Security for authentication.
+     *
+     * @param username the username to look up
+     * @return a UserDetails object containing user credentials and authorities
+     * @throws UsernameNotFoundException if the user is not found
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserInfo user = userRepository.findByUsername(username);
@@ -40,6 +52,14 @@ public class UserService implements UserDetailsService {
         );
     }
 
+    /**
+     * Registers a new user in the system after performing validations.
+     *
+     * @param registerRequest the incoming registration data
+     * @return a success response upon successful registration
+     * @throws UserAlreadyExistsException if the username is already taken
+     * @throws PasswordMismatchException if password and confirmPassword don't match
+     */
     public RegisterResponse register(RegisterRequest registerRequest) {
         if(userRepository.findByUsername(registerRequest.getUsername()) != null) {
             log.error("Username {} already in use", registerRequest.getUsername());

@@ -12,6 +12,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Entity representing user information stored in the database.
+ * Implements UserDetails to integrate with Spring Security.
+ */
 @Setter
 @Getter
 @Entity
@@ -25,11 +29,17 @@ public class UserInfo implements UserDetails {
     String email;
     int age;
 
+    /**
+     * Used for logging/debugging. Currently calls the default implementation.
+     */
     @Override
     public String toString() {
         return super.toString();
     }
 
+    /**
+     * Returns the authorities granted to the user.
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();

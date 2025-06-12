@@ -18,6 +18,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * REST controller for handling user authentication and registration.
+ * Provides endpoints for login and user registration with JWT token generation.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/synassignment/users")
@@ -28,6 +32,10 @@ public class UserController {
     private final JWTUtil jwtUtil;
     private final UserService userService;
 
+    /**
+     * Authenticates the user and returns a JWT token on success.
+     * Returns 401 on bad credentials and 500 on internal error.
+     */
     @PostMapping(value = "/login",
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,6 +56,10 @@ public class UserController {
         }
     }
 
+    /**
+     * Registers a new user and returns the registration response on success.
+     * Returns 409 if the user already exists or passwords mismatch, and 500 on internal error.
+     */
     @PostMapping(value = "/register",
     consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)

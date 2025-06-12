@@ -15,8 +15,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import java.util.List;
-
+/**
+ * Security configuration class for setting up custom authentication and authorization
+ * using JWT, stateless sessions, and secured API endpoints.
+ */
 @RequiredArgsConstructor
 @EnableWebSecurity
 @Configuration
@@ -25,6 +27,9 @@ public class AuthConfig {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Configures a custom AuthenticationManager with UserDetailsService and PasswordEncoder.
+     */
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder builder =
@@ -33,6 +38,13 @@ public class AuthConfig {
         return builder.build();
     }
 
+    /**
+     * Defines the security filter chain:
+     * - Disables CSRF for stateless APIs
+     * - Sets up public and protected endpoints
+     * - Adds JWT filter before authentication filter
+     * - Configures stateless session management
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JWTAuthFilter jwtFilter,
                                                    CustomEntrypointAuthentication entryPoint) throws Exception {

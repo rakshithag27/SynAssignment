@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * DTO representing a Register request with username, password, confirm password, age and email.
+ */
 @Getter
 @Setter
 @AllArgsConstructor
