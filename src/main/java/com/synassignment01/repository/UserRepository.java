@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * Provides methods to perform CRUD operations and custom queries.
  */
 @Repository
-public interface UserRepository extends JpaRepository<UserInfo,Integer> {
+public interface UserRepository extends JpaRepository<UserInfo,Long> {
     UserInfo findByUsername(String username);
 
 
