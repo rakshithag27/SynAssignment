@@ -41,6 +41,7 @@ cloudinary.api_secret=your_api_secret
 - ./mvnw spring-boot:run
 
 Authentication
+- OAuth2 Authorization is used
 - Login with valid credentials at `/synassignment/users/login`
 - Receive a **JWT token** in the response
 - Use this token as a **Bearer token** in the `Authorization` header for all protected image routes
