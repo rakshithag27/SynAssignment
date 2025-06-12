@@ -8,9 +8,17 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * Custom entry point for handling unauthorized access attempts.
+ * Sends a 401 Unauthorized response with a JSON error message when authentication fails.
+ */
 @Component
 public class CustomEntrypointAuthentication implements AuthenticationEntryPoint {
 
+    /**
+     * Triggered when an unauthenticated user tries to access a secured resource.
+     * Responds with a JSON message and 401 status code.
+     */
     @Override
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,

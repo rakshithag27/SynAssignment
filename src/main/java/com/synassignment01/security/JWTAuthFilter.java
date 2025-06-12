@@ -22,6 +22,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Custom security filter for JWT authentication.
+ * Intercepts requests, validates the JWT token, and sets authentication in the security context.
+ */
 @Slf4j
 @Component
 public class JWTAuthFilter extends OncePerRequestFilter {
@@ -29,6 +33,11 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     @Value("${jwt.secret}")
     String secret;
 
+    /**
+     * Filters each HTTP request to validate the JWT token.
+     * If valid, sets the authentication in the SecurityContextHolder.
+     * If missing or invalid, either skips or responds with 401 Unauthorized.
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,

@@ -13,6 +13,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Utility class for generating and managing JWT tokens.
+ */
 @Slf4j
 @Component
 public class JWTUtil {
@@ -21,12 +24,22 @@ public class JWTUtil {
 
     private SecretKey key;
 
+    /**
+     * Initializes the secret key after the component is constructed.
+     * Converts the plain-text secret into an HMAC SHA key.
+     */
     @PostConstruct
     public void init() {
-        // Convert the string secret into a proper SecretKey
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
+    /**
+     * Generates a JWT token for the given username.
+     * Token is valid for 10 hours and contains the "ROLE_USER" authority.
+     *
+     * @param username the username to include in the token
+     * @return the generated JWT token as a String
+     */
     public String generateJWTToken(String username){
         log.info("Generating JWT Token for user {}", username);
         return Jwts.builder()
